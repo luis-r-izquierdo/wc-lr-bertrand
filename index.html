@@ -1,0 +1,274 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+   <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1">
+   <title>The "Win-Continue, Lose-Reverse" rule in a Bertrand-like duopoly</title>
+
+   <META name=keywords content="Bertrand, duopoly oligopoly, Win-Continue, Lose-Reverse, collusion, simulation, differentiated">
+
+   <META name=Description content="wc-lr-bertrand is a model designed to analyse the Win-Continue, Lose-Reverse rule in a Bertrand-like duopoly">
+
+   <META name=Authors content="Segismundo S. Izquierdo &amp; Luis R. Izquierdo">
+
+   <STYLE type="text/css">
+      H1 {
+         BACKGROUND-COLOR: #111199;
+         color: #ffffff;
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      H2 {
+         BACKGROUND-COLOR: #66ccff;
+         font-family: arial
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      H3 {
+         BACKGROUND-COLOR: #cccccc;
+         font-family: verdana;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      p {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      table {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      ul {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      ol {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.parameter {
+         font-family: arial;
+         color: red;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.variable {
+         font-family: arial;
+         color: black;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.button {
+         font-family: arial;
+         color: blue;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.value {
+         font-family: arial;
+         color: #444444;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.slider {
+         font-family: arial;
+         color: green;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.monitor {
+         font-family: arial;
+         color: #B8860B;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.plot {
+         font-family: arial;
+         color: brown;
+         font-weight: bold
+      }
+   </STYLE>
+
+</head>
+
+<body>
+
+   <H1>The "Win-Continue, Lose-Reverse" rule in a Bertrand-like duopoly</H1>
+   <h3>Segismundo S. Izquierdo &amp; Luis R. Izquierdo</h3>
+
+   <H2>HOW TO INSTALL THE MODEL</H2>
+
+   <p>To use WC-LR-Bertrand, you will have to install <a target="_blank" href="http://ccl.northwestern.edu/netlogo/">NetLogo 5.3.1 (free and open source)</a> and download <a href="wc-lr-bertrand.nlogo">the model itself</a>. Unzip the downloaded file and click on wc-lr-bertrand</p>
+
+   <!--
+   <p>The applet requires Java 5 or higher. You may obtain the latest Java plugin from <a href="http://www.java.com/">Oracle's Java site</a>. If you find that the application has been blocked by security settings, you have (at least) two options:
+      <ul>
+         <li> Add this website to the Exception Site List in Java, or
+            <li> Run the model offline. For this, I'm afraid that you will have to download <a target="_blank" href="http://ccl.northwestern.edu/netlogo/">NetLogo (free and open source) here</a> and <a href="wc-lr-bertrand.nlogo">the model here</a>.
+      </ul>
+   </p>
+   <p> We are sorry for the inconvenience.
+   </p>
+   <hr>
+
+   <p align="center">
+      <applet code="org.nlogo.lite.Applet" archive="NetLogoLite.jar" width="1121" height="720">
+         <param name="DefaultModel" value="wc-lr-bertrand.nlogo">
+         <param name="java_arguments" value="-Djnlp.packEnabled=true">
+      </applet>
+   </p>
+
+   <p>powered by
+      <a target="_blank" href="http://ccl.northwestern.edu/netlogo/">NetLogo</a></p>
+
+   <p>view/download model file:
+      <a href="wc-lr-bertrand.nlogo">wc-lr-bertrand.nlogo</a></p>
+
+   -->
+   <H2>DESCRIPTION OF THE MODEL</H2>
+
+   <p><b>WC-LR-Bertrand</b> is a model designed to analyse the <b>W</b>in-<b>C</b>ontinue, <b>L</b>ose-<b>R</b>everse rule in duopolies with differentiated products where firms compete in prices. This section explains the formal model that <b>WC-LR-Bertrand</b> implements. The information provided here should suffice to re-implement the same formal model in any sophisticated enough modelling platform. We use bold red italicised arial font to denote <i class="parameter">parameters</i> (i.e. variables that can be set by the user). Any parameter value can be changed at runtime, with immediate effect on the dynamics of the model.</p>
+
+   <p>The considered model is a (Bertrand-like) duopoly with differentiated products in which the decision variable is the price level. The process advances in discrete time steps and at every time step <i>t</i> (<i>t</i> = 0, 1, ...) the two companies have to simultaneously choose whether to increase or decrease their price level [<i class="variable">p<sub>i</sub></i>]<sub><i>t</i></sub>. The decision rule considered here can be simply stated as: repeat your last action (i.e. an increase or a decrease in price) if your profits have grown; otherwise, choose the opposite action. This simple rule has been named "Win-Continue, Lose-Reverse" (WCLR) by Huck et al. (2003), who conducted a thorough study of its convergence properties in symmetric Cournot oligopolies.</p>
+
+   <p>In <b>WC-LR-Bertrand</b>, each company <i>i</i> (<i>i</i> = 1, 2) faces a market demand [<i class="variable">q<sub>i</sub></i>]<sub><i>t</i></sub> which depends on the prices chosen by both companies, according to the following formula:</p>
+
+   <p align="center">
+      [<i class="variable">q<sub>i</sub></i>]<sub><i>t</i></sub> = MAX(<i class="parameter">q0</i> - <i class="parameter">ai</i>&middot;[<i class="variable">p<sub>i</sub></i>]<sub><i>t</i></sub> + <i class="parameter">aj</i>&middot;[<i class="variable">p<sub>j</sub></i>]<sub><i>t</i></sub>, 0)
+   </p>
+
+   <p>where <i>i</i> &#8800; <i>j</i>.</p>
+
+   <p>The amount [<i class="variable">q<sub>i</sub></i>]<sub><i>t</i></sub> is produced on period <i>t</i> with the cost function C(<i>q</i>):</p>
+
+   <p align="center">
+      C(<i>q</i>) = <i class="parameter">c0</i> + <i class="parameter">c1</i>&middot;<i>q</i> + <i class="parameter">c2</i>&middot;<i>q</i><sup>2</sup>.
+   </p>
+
+   <p>The profit for each company on period <i>t</i> is</p>
+
+   <p align="center">
+      [<i class="variable">&pi;<sub>i</sub></i>]<sub><i>t</i></sub> = [<i class="variable">p<sub>i</sub></i>]<sub><i>t</i></sub>&middot;[<i class="variable">q<sub>i</sub></i>]<sub><i>t</i></sub> - C([<i class="variable">q<sub>i</sub></i>]<sub><i>t</i></sub>).
+   </p>
+
+   <p>Incremental values are naturally defined as [&Delta;<i class="variable">&pi;<sub>i</sub></i>]<sub><i>t</i></sub> := [<i class="variable">&pi;<sub>i</sub></i>]<sub><i>t</i></sub> - [<i class="variable">&pi;<sub>i</sub></i>]<sub><i>t</i>-1</sub>, and initial values at time step 0 are [&Delta;<i class="variable">&pi;<sub>i</sub></i>]<sub>0</sub> = 0, and [&Delta;<i class="variable">p<sub>i</sub></i>]<sub>0</sub> = 0.</p>
+
+   <p>Let us also define [<i class="variable">s<sub>i</sub></i>]<sub><i>t</i></sub> := SIGN([&Delta;<i class="variable">p<sub>i</sub></i>]<sub><i>t</i></sub>&middot;[&Delta;<i class="variable">&pi;<sub>i</sub></i>]<sub><i>t</i></sub>). Note that [<i class="variable">s<sub>i</sub></i>]<sub><i>t</i></sub> is equal to +1 if the last changes in [<i class="variable">p<sub>i</sub></i>]<sub><i>t</i></sub> and [<i class="variable">&pi;<sub>i</sub></i>]<sub><i>t</i></sub> took place in the same direction, and [<i class="variable">s<sub>i</sub></i>]<sub><i>t</i></sub> is equal to -1 if such changes went in opposite directions.</p>
+
+   <p>For each company <i>i</i>, the price levels are calculated as:</p>
+
+   <p align="center">
+      [<i class="variable">p<sub>i</sub></i>]<sub><i>t</i>+1</sub> = MAX([<i class="variable">p<sub>i</sub></i>]<sub><i>t</i></sub> + [&Delta;<i class="variable">p<sub>i</sub></i>]<sub><i>t</i>+1</sub>, <i class="parameter">c1</i>).</p>
+
+   <p> Note that we impose that the price should be no less than the minimum marginal cost of the firms, <i class="parameter">c1</i>. Initial value [<i class="variable">p<sub>i</sub></i>]<sub>0</sub> at time step 0 is a random multiple of <i class="parameter">step</i> in the range [0, (<i class="parameter">q0</i> / <i class="parameter">ai</i>].) The decision rule WCLR used to calculate the price increments [&Delta;<i class="variable">p<sub>i</sub></i>]<sub><i>t</i>+1</sub> is implemented as follows:</p>
+
+   <p><b><u>WCLR Rule</u></b>:</p>
+   <ul>
+      <li>If <i>t</i> = 0 or [<i class="variable">s<sub>i</sub></i>]<sub><i>t</i></sub> = 0, then [&Delta;<i class="variable">p<sub>i</sub></i>]<sub><i>t</i>+1</sub> takes one random value out of the set {-<i class="parameter">step</i>, 0, <i class="parameter">step</i>}, where <i class="parameter">step</i> is the step size.</li>
+      <li>Otherwise, [&Delta;<i class="variable">p<sub>i</sub></i>]<sub><i>t</i>+1</sub> = <i class="parameter">step</i>&middot;[<i class="variable">s<sub>i</sub></i>]<sub><i>t</i></sub>.</li>
+   </ul>
+
+   <h3>Noise</h3>
+
+   <p>It is also assumed that the process includes three types of "noise":</p>
+
+   <ul>
+      <li><b><u>Decision noise</u></b>: With a small probability <i class="parameter">p-random</i> for each company in every period, the company will deviate from the value prescribed above for [&Delta;<i class="variable">p<sub>i</sub></i>]<sub><i>t</i>+1</sub> and will take a random choice among {-<i class="parameter">step</i>, 0, <i class="parameter">step</i>}. This "decision noise" can represent occasional mistakes or experimentation.</li>
+      <li><b><u>Cost noise</u></b>, characterised by the parameter <i class="parameter">cost-variability</i>, and implemented by altering each firm's base cost according to the following formula:
+
+         <p align="center">
+            [<i class="variable">c<sub>i</sub></i>]<sub><i>t</i></sub> = C([<i class="variable">q<sub>i</sub></i>]<sub><i>t</i></sub>)&middot;(1 + <i class="parameter">cost-variability</i>&middot;U[-1,1])
+         </p>
+
+         <p>where U[-1,1] is a continuous uniform random variable with range [-1 , 1].</p>
+      </li>
+
+      <li><b><u>Demand noise</u></b>, characterised by the parameter <i class="parameter">demand-variability</i>, and implemented by altering the demand of each firm [<i class="variable">q<sub>i</sub></i>]<sub><i>t</i></sub> according to the following formula:
+
+         <p align="center">
+            [<i class="variable">q<sub>i</sub></i>]<sub><i>t</i></sub> = MAX((<i class="parameter">q0</i> - <i class="parameter">ai</i>&middot;[<i class="variable">p<sub>i</sub></i>]<sub><i>t</i></sub> + <i class="parameter">aj</i>&middot;[<i class="variable">p<sub>j</sub></i>]<sub><i>t</i></sub>)&middot;{1 + <i class="parameter">demand-variability</i>&middot;(<i class="parameter">alpha</i>&middot;U[-1,1]<sub><b>COMMON</b></sub> + (1 - <i class="parameter">alpha</i>)&middot;U[-1,1]<sub><b>INDIVIDUAL</b></sub>)}, 0)
+         </p>
+
+         <p>where U[-1,1]<sub><b>COMMON</b></sub> is a continuous uniform random variable with range [-1 , 1] which is shared by the two firms in the market in each time-step, and U[-1,1]<sub><b>INDIVIDUAL</b></sub> is a continuous uniform random variable with range [-1 , 1] which is specific to each firm in the market in each time-step. Extreme value <i class="parameter">alpha</i> = 0 represents completely uncorrelated perturbations, whilst extreme value <i class="parameter">alpha</i> = 1 represents full correlation between the demand perturbations received by each firm (potentially due, for instance, to seasonal demand variability in both products, or global factors affecting the demand of both products in the same way).</p>
+      </li>
+   </ul>
+
+   <h2>HOW TO USE IT</h2>
+
+   <h3>Buttons</h3>
+
+   <ul>
+      <li><i class="button">Set up</i>: Initializes the model. </li>
+      <li><i class="button">Go once</i>: Pressing this button will run the model one time-step only.
+         <li><i class="button">Go</i>: Pressing this button will run the model until this same button is pressed again. </li>
+         <li><i class="button">Reset plots</i>: Pressing this button will reset the two plots with an adequate scale. Useful when some parameters have been changed at runtime</li>
+   </ul>
+
+   <h2>PLOTS AND MONITORS</h2>
+
+   <h3>Plots</h3>
+
+   <ul>
+      <li><i class="plot">Prices</i>: Time series of the prices in the market, of the collusion price and of the Nash price.</li>
+      <li><i class="plot">Price 1 vs. Price 2</i>: Time series of the prices set by the two firms in the market, of the prices corresponding to the collusion equilibrium, and of the prices corresponding to the Nash equilibrium.</li>
+   </ul>
+
+   <h3>Monitors</h3>
+
+   <ul>
+      <li><i class="monitor">ticks</i>: Number of time-steps that have gone by.</li>
+   </ul>
+
+   <ul>
+      <li><i class="monitor">price-collusion</i>: Price corresponding to the collusion equilibrium with the current values for the parameters.</li>
+      <li><i class="monitor">price 1</i>: Price set by firm 1 in the current time-step.</li>
+      <li><i class="monitor">price 2</i>: Price set by firm 2 in the current time-step.</li>
+      <li><i class="monitor">price-Nash</i>: Price corresponding to the Nash equilibrium with the current values for the parameters.</li>
+   </ul>
+
+   <ul>
+      <li><i class="monitor">q 1</i>: Quantity sold by firm 1 in the current time-step.</li>
+      <li><i class="monitor">q 2</i>: Quantity sold by firm 2 in the current time-step.</li>
+      <li><i class="monitor">profit 1</i>: Profit of firm 1 in the current time-step.</li>
+      <li><i class="monitor">profit 2</i>: Profit of firm 2 in the current time-step.</li>
+   </ul>
+
+   <H2>LICENCE</H2>
+   <p>wc-lr-bertrand is a model designed to analyse the Win-Continue, Lose-Reverse rule in a Bertrand-like duopoly.
+      <br>Copyright (C) 2014 <a target="_blank" href="http://segis.izqui.org">Segismundo S. Izquierdo</a> &amp; <a target="_blank" href="http://luis.izqui.org">Luis R. Izquierdo</a></p>
+
+   <p>This program is free software; you can redistribute it and/or modify it under the terms of the <a target="_blank" href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a> as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.</p>
+   <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the <a target="_blank" href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a> for more details.</p>
+   <p>You can download a copy of the <a target="_blank" href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a> by clicking <a target="_blank" href="./gpl-3.0.txt">here</a>; you can also get a printed copy writing to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
+   <p>Contact information:
+      <br>Segismundo S. Izquierdo
+      <br> University of Valladolid, Spain.
+      <br> e-mail: <a href="mailto:segis@eii.uva.es">segis@eii.uva.es</a>
+   </p>
+
+   <H2>MODELLERS</H2>
+   <p>This program has been designed and implemented by <a target="_blank" href="http://segis.izqui.org">Segismundo S. Izquierdo</a> &amp; <a target="_blank" href="http://luis.izqui.org">Luis R. Izquierdo</a>.</p>
+
+   <H2>REFERENCES</H2>
+
+   <ul>
+      <li>Huck S, Normann HT, Oechssler J (2003) Zero-knowledge cooperation in dilemma games. <i>J. Theor. Biol.</i> 220(1): 47-54</li>
+   </ul>
+
+
+   <hr>
+</body>
+
+</html>
